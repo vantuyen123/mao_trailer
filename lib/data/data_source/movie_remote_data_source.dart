@@ -13,7 +13,7 @@ abstract class MovieRemoteDataSource {
 }
 
 class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
-  final ApiClient _client;
+  final DioClient _client;
 
   MovieRemoteDataSourceImpl(this._client);
 

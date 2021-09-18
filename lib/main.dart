@@ -2,14 +2,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mao_trailer/data/core/api_client.dart';
 import 'package:mao_trailer/data/data_source/movie_remote_data_source.dart';
+import 'package:mao_trailer/data/repositories/movie_repository_impl.dart';
+
+import 'domain/repositories/movie_repository.dart';
 
 void main() {
-  ApiClient apiClient = ApiClient(Dio());
+  DioClient apiClient = DioClient(Dio());
   MovieRemoteDataSource dataSource = MovieRemoteDataSourceImpl(apiClient);
-  dataSource.getTrending();
-  dataSource.getPopular();
-  dataSource.getComingSoon();
-  dataSource.getPlayingNow();
+  MovieRepository movieRepository = MovieRepositoryImpl(dataSource);
+  movieRepository.getTrending();
+  // dataSource.getTrending();
+  // dataSource.getPopular();
+  // dataSource.getComingSoon();
+  // dataSource.getPlayingNow();
   runApp(MyApp());
 }
 
