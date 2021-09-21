@@ -1,4 +1,4 @@
-import 'package:mao_trailer/data/core/api_client.dart';
+import 'package:mao_trailer/data/core/dio_client.dart';
 import 'package:mao_trailer/data/models/movie_model.dart';
 import 'package:mao_trailer/data/models/movies_results_model.dart';
 
