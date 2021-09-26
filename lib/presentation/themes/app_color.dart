@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart ';
+import 'package:flutter/rendering.dart';
 class AppColor{
   const AppColor._();
 
-  static const Color yellowColor = Color(0xFFFECB2F);
-  static const Color gradientColor1 = Color(0xFFD72B60);
-  static const Color gradientColor2 = Color(0xFFF99F00);
+  static const Color vulcan = Color(0xFF121221);
+  static const Color royalBlue = Color(0xFF604FEF);
+  static const Color violet = Color(0xFFA74DBC);
 }
