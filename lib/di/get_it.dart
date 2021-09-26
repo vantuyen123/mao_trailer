@@ -10,6 +10,7 @@ import 'package:mao_trailer/domain/usecases/movie/get_popular.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_trending.dart';
 import 'package:mao_trailer/presentation/blocs/movie_backdrop_bloc/movie_backdrop_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_bloc.dart';
+import 'package:mao_trailer/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 
 final getItInstance = GetIt.I;
 
@@ -55,4 +56,13 @@ Future init() async {
 
   //MovieBackdropBloc:----------------------------------------------------------
   getItInstance.registerLazySingleton(() => MovieBackdropBloc());
+
+  //MovieTabbedBloc:------------------------------------------------------------
+  getItInstance.registerFactory(
+    () => MovieTabbedBloc(
+      getPopular: GetPopular(getItInstance()),
+      getPlayingNow: GetPlayingNow(getItInstance()),
+      getComingSoon: GetComingSoon(getItInstance()),
+    ),
+  );
 }

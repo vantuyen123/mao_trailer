@@ -6,6 +6,8 @@ import 'package:mao_trailer/presentation/blocs/movie_backdrop_bloc/movie_backdro
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_event.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_state.dart';
+import 'package:mao_trailer/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
+import 'package:mao_trailer/presentation/journerys/home/movie_tabbe/movie_tabbed_widget.dart';
 
 import 'movie_carousel/movie_carousel_widget.dart';
 
@@ -17,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late MovieCarouselBloc movieCarouselBloc;
   late MovieBackdropBloc movieBackdropBloc;
+  late MovieTabbedBloc movieTabbedBloc;
 
   @override
   void initState() {
@@ -24,12 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
     movieCarouselBloc = getItInstance<MovieCarouselBloc>();
     movieBackdropBloc = movieCarouselBloc.movieBackdropBloc;
     movieCarouselBloc.add(CarouselLoadEvent());
+    movieTabbedBloc = getItInstance<MovieTabbedBloc>();
   }
 
   @override
   void dispose() {
     super.dispose();
     movieCarouselBloc.close();
+    movieTabbedBloc.close();
     movieBackdropBloc.close();
   }
 
@@ -42,7 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BlocProvider(
           create: (context) => movieBackdropBloc,
-        )
+        ),
+        BlocProvider(
+          create: (context) => movieTabbedBloc,
+        ),
       ],
       child: Scaffold(
         body: BlocBuilder<MovieCarouselBloc, MovieCarouselState>(
@@ -63,9 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   FractionallySizedBox(
                     heightFactor: 0.4,
                     alignment: Alignment.bottomCenter,
-                    child: Placeholder(
-                      color: Colors.white,
-                    ),
+                    child: MovieTabbedWidget(),
                   )
                 ],
               );
