@@ -15,6 +15,7 @@ class MaoTrailer extends StatelessWidget {
         theme: ThemeData(
             primaryColor: AppColor.vulcan,
             scaffoldBackgroundColor: AppColor.vulcan,
+            accentColor: AppColor.royalBlue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
             textTheme: ThemeText.getTextTheme(),
             appBarTheme: const AppBarTheme(elevation: 0)),
