@@ -7,7 +7,7 @@ import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carouse
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_event.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_state.dart';
 import 'package:mao_trailer/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
-import 'package:mao_trailer/presentation/journerys/drawer/NavigationDrawer.dart';
+import 'package:mao_trailer/presentation/journerys/drawer/navigation_drawer.dart';
 import 'package:mao_trailer/presentation/journerys/home/movie_tabbe/movie_tabbed_widget.dart';
 
 import 'movie_carousel/movie_carousel_widget.dart';

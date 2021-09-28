@@ -41,6 +41,8 @@ dependencies:
   # svg file support
   flutter_svg: ^0.22.0
   cached_network_image: ^3.1.0
+  flutter_localizations:
+    sdk: flutter
 
 
 dev_dependencies:
@@ -79,6 +81,7 @@ flutter:
   assets:
     - assets/images/logo/
     - assets/svgs/
+    - assets/languages/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

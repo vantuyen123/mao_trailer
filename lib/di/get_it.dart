@@ -8,6 +8,7 @@ import 'package:mao_trailer/domain/usecases/movie/get_coming_soon.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_playing_now.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_popular.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_trending.dart';
+import 'package:mao_trailer/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_backdrop_bloc/movie_backdrop_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
@@ -65,4 +66,7 @@ Future init() async {
       getComingSoon: GetComingSoon(getItInstance()),
     ),
   );
+
+  //LanguageBloc:---------------------------------------------------------------
+  getItInstance.registerSingleton<LanguageBloc>(LanguageBloc());
 }

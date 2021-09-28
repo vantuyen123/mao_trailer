@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mao_trailer/common/extensions/string_extensions.dart';
 import 'package:mao_trailer/presentation/themes/app_color.dart';
 import 'package:mao_trailer/presentation/themes/theme_text.dart';
 
@@ -31,7 +32,7 @@ class TabTitleWidget extends StatelessWidget {
           ),
         ),
         child: Text(
-          title,
+          title.t(context).toString(),
           style: isSelected
               ? Theme.of(context).textTheme.royalBlueSubtitle
               : Theme.of(context).textTheme.subtitle1,

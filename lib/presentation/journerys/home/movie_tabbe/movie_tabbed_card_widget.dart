@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mao_trailer/data/core/api_constants.dart';
 import 'package:mao_trailer/common/extensions/string_extensions.dart';
-import 'package:mao_trailer/presentation/themes/theme_text.dart';
 
 class MovieTabCardWidget extends StatelessWidget {
   final int movieId;
