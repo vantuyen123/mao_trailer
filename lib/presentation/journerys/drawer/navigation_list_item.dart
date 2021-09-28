@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class NavigationListItem extends StatelessWidget {
 
   final String title;
-  final Function onPress;
+  final Function() onPress;
 
   const NavigationListItem(
       {Key? key, required this.title, required this.onPress,})
@@ -13,7 +13,7 @@ class NavigationListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPress(),
+      onTap:onPress,
       child: Container(
         decoration: BoxDecoration(
             boxShadow: [

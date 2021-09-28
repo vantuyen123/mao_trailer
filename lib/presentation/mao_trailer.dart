@@ -9,10 +9,13 @@ import 'package:mao_trailer/presentation/blocs/language_bloc/language_state.dart
 import 'package:mao_trailer/presentation/journerys/home/home_screen.dart';
 import 'package:mao_trailer/presentation/themes/app_color.dart';
 import 'package:mao_trailer/presentation/themes/theme_text.dart';
+import 'package:mao_trailer/presentation/widgets/wiredsh_app.dart';
 
 import 'blocs/language_bloc/language_bloc.dart';
 
 class MaoTrailer extends StatefulWidget {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   _MaoTrailerState createState() => _MaoTrailerState();
 }
@@ -41,26 +44,31 @@ class _MaoTrailerState extends State<MaoTrailer> {
         child: BlocBuilder<LanguageBloc, LanguageState>(
           builder: (context, state) {
             if (state is LanguageLoaded) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'Movie App',
-                theme: ThemeData(
-                  unselectedWidgetColor: AppColor.royalBlue,
-                    primaryColor: AppColor.vulcan,
-                    scaffoldBackgroundColor: AppColor.vulcan,
-                    accentColor: AppColor.royalBlue,
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                    textTheme: ThemeText.getTextTheme(),
-                    appBarTheme: const AppBarTheme(elevation: 0)),
-                home: HomeScreen(),
-                supportedLocales:
-                    Languages.languages.map((e) => Locale(e.code)).toList(),
-                locale: state.locale,
-                localizationsDelegates: [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate
-                ],
+              return WireDashApp(
+                navigatorKey: widget._navigatorKey,
+                languageCode: state.locale.languageCode,
+                child: MaterialApp(
+                  navigatorKey: widget._navigatorKey,
+                  debugShowCheckedModeBanner: false,
+                  title: 'Movie App',
+                  theme: ThemeData(
+                      unselectedWidgetColor: AppColor.royalBlue,
+                      primaryColor: AppColor.vulcan,
+                      scaffoldBackgroundColor: AppColor.vulcan,
+                      accentColor: AppColor.royalBlue,
+                      visualDensity: VisualDensity.adaptivePlatformDensity,
+                      textTheme: ThemeText.getTextTheme(),
+                      appBarTheme: const AppBarTheme(elevation: 0)),
+                  home: HomeScreen(),
+                  supportedLocales:
+                      Languages.languages.map((e) => Locale(e.code)).toList(),
+                  locale: state.locale,
+                  localizationsDelegates: [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate
+                  ],
+                ),
               );
             }
             return const SizedBox.shrink();

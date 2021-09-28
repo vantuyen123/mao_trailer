@@ -43,6 +43,7 @@ dependencies:
   cached_network_image: ^3.1.0
   flutter_localizations:
     sdk: flutter
+  wiredash: ^0.7.0+1
 
 
 dev_dependencies:
@@ -81,6 +82,7 @@ flutter:
   assets:
     - assets/images/logo/
     - assets/svgs/
+    - assets/pngs/
     - assets/languages/
   #   - images/a_dot_ham.jpeg
 
