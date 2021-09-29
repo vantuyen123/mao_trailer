@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mao_trailer/domain/entites/app_error.dart';
 import 'package:mao_trailer/domain/entites/movie_entity.dart';
 
 class MovieCarouselState extends Equatable {
@@ -10,7 +11,11 @@ class MovieCarouselState extends Equatable {
 
 class MovieCarouselInitial extends MovieCarouselState {}
 
-class MovieCarouselError extends MovieCarouselState {}
+class MovieCarouselError extends MovieCarouselState {
+  final AppErrorType errorType;
+
+  MovieCarouselError(this.errorType);
+}
 
 class MovieCarouselLoaded extends MovieCarouselState {
   final List<MovieEntity> movies;

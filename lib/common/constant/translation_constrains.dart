@@ -1,6 +1,8 @@
 class TranslationConstants{
 
 
+
+
   TranslationConstants._();
 
   static const String FAVORITEMOVIES = 'favoriteMovies';
@@ -12,4 +14,10 @@ class TranslationConstants{
   static const String POPULAR = 'popular';
   static const String NOW = 'now';
   static const String SOON = 'soon';
+  static const String CHECKNETWORK = "checkNetwork";
+  static const String SOMETHINGWENTWRONG ="somethingWentWrong";
+  static const String RETRY ="retry";
+  static const String NOMOVIES = 'noMovies';
+
+
 }

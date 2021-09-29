@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mao_trailer/domain/entites/app_error.dart';
 import 'package:mao_trailer/domain/entites/movie_entity.dart';
 
 abstract class MovieTabbedState extends Equatable {
@@ -19,18 +20,20 @@ class MovieTabbedInitial extends MovieTabbedState {
 }
 
 class MovieTabChanged extends MovieTabbedState {
-  final List<MovieEntity> movies;
+  final List<MovieEntity>? movies;
 
-  MovieTabChanged({required this.movies, required int currentTabIndex})
+  MovieTabChanged({this.movies, required int currentTabIndex})
       : super(currentTabIndex: currentTabIndex);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [currentTabIndex,movies];
+  List<Object?> get props => [currentTabIndex, movies];
 }
-class MovieTabLoadError extends MovieTabbedState{
-  const MovieTabLoadError({required int currentTabIndex}) : super(
-    currentTabIndex: currentTabIndex
-  );
 
+class MovieTabLoadError extends MovieTabbedState {
+  final AppErrorType errorType;
+
+  const MovieTabLoadError(
+      {required int currentTabIndex, required this.errorType})
+      : super(currentTabIndex: currentTabIndex);
 }
