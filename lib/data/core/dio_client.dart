@@ -7,9 +7,9 @@ class DioClient {
   DioClient(this._dio);
 
   //Get: -----------------------------------------------------------------------
-  dynamic get(String path) async {
+  dynamic get(String path, {Map<dynamic,dynamic>? params}) async {
     final response = await _dio.get(
-      '${ApiConstants.BASE_URL}$path?api_key=${ApiConstants.API_KEY}',
+      getPath(path, params),
       options: Options(
         headers: {'Content-Type': 'Application/json'},
       ),
@@ -19,5 +19,15 @@ class DioClient {
     } else {
       throw Exception(response.statusMessage);
     }
+  }
+
+  String getPath(String path,Map<dynamic,dynamic>? params){
+    var paramsString = '';
+    if(params?.isEmpty ?? false){
+      params?.forEach((key, value) {
+        paramsString += '&$key=$value';
+      });
+    }
+    return '${ApiConstants.BASE_URL}$path?api_key=${ApiConstants.API_KEY}$paramsString';
   }
 }

@@ -1,8 +1,6 @@
 class TranslationConstants{
 
 
-
-
   TranslationConstants._();
 
   static const String FAVORITEMOVIES = 'favoriteMovies';
@@ -18,6 +16,6 @@ class TranslationConstants{
   static const String SOMETHINGWENTWRONG ="somethingWentWrong";
   static const String RETRY ="retry";
   static const String NOMOVIES = 'noMovies';
-
-
+  static const String CAST = 'cast';
+  static const String WATCHTRAILERS = 'watchTrailers';
 }
