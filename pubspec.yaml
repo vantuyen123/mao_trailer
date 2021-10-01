@@ -44,6 +44,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   wiredash: ^0.7.0+1
+  youtube_player_flutter: ^8.0.0
 
 
 dev_dependencies:
@@ -84,6 +85,7 @@ flutter:
     - assets/svgs/
     - assets/pngs/
     - assets/languages/
+    - assets/jpg/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

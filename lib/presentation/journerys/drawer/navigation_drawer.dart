@@ -8,7 +8,6 @@ import 'package:mao_trailer/presentation/blocs/language_bloc/language_bloc.dart'
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_event.dart';
 import 'package:mao_trailer/presentation/journerys/drawer/navigation_expanded_list_title.dart';
 import 'package:mao_trailer/presentation/journerys/drawer/navigation_list_item.dart';
-import 'package:mao_trailer/presentation/themes/app_color.dart';
 import 'package:mao_trailer/presentation/widgets/app_dialog.dart';
 import 'package:mao_trailer/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';

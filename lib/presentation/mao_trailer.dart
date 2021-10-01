@@ -55,7 +55,7 @@ class _MaoTrailerState extends State<MaoTrailer> {
                       unselectedWidgetColor: AppColor.royalBlue,
                       primaryColor: AppColor.vulcan,
                       scaffoldBackgroundColor: AppColor.vulcan,
-                      accentColor: AppColor.royalBlue,
+                      colorScheme: ThemeData().colorScheme.copyWith(secondary: AppColor.royalBlue),
                       visualDensity: VisualDensity.adaptivePlatformDensity,
                       textTheme: ThemeText.getTextTheme(),
                       appBarTheme: const AppBarTheme(elevation: 0)),

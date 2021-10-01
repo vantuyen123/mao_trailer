@@ -49,4 +49,13 @@ class ThemeText {
 extension ThemeTextExtension on TextTheme {
   TextStyle get royalBlueSubtitle => subtitle1!.copyWith(
       color: AppColor.royalBlue, fontSize: 20.sp, fontWeight: FontWeight.w600);
+
+  TextStyle get greySubTitle1 => subtitle1!.copyWith(
+      color: Colors.grey, fontSize: 20.sp, fontWeight: FontWeight.w600);
+
+  TextStyle get violetHeadline6 => headline6!.copyWith(
+      color: AppColor.violet, fontSize: 20.sp, fontWeight: FontWeight.w600);
+
+  TextStyle get vulcanBodyText2 =>
+      bodyText2!.copyWith(color: AppColor.vulcan, fontWeight: FontWeight.w600);
 }

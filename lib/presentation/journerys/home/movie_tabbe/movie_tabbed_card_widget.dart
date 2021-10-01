@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mao_trailer/data/core/api_constants.dart';
 import 'package:mao_trailer/common/extensions/string_extensions.dart';
+import 'package:mao_trailer/presentation/journerys/movie_detail/movie_detail_arguments.dart';
+import 'package:mao_trailer/presentation/journerys/movie_detail/movie_detail_screen.dart';
 
 class MovieTabCardWidget extends StatelessWidget {
   final int movieId;
@@ -19,7 +21,15 @@ class MovieTabCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => MovieDetailScreen(
+              movieDetailArguments: MovieDetailArguments(movieId),
+            ),
+          ),
+        );
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
