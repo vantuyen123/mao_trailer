@@ -1,6 +1,7 @@
 class TranslationConstants{
 
 
+
   TranslationConstants._();
 
   static const String FAVORITEMOVIES = 'favoriteMovies';
@@ -18,4 +19,6 @@ class TranslationConstants{
   static const String NOMOVIES = 'noMovies';
   static const String CAST = 'cast';
   static const String WATCHTRAILERS = 'watchTrailers';
+  static const String NOMOVIESSEARCHED = "noMoviesSearched";
+
 }

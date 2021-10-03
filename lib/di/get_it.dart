@@ -9,6 +9,7 @@ import 'package:mao_trailer/domain/usecases/movie/get_coming_soon.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_movie_detail.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_playing_now.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_popular.dart';
+import 'package:mao_trailer/domain/usecases/movie/get_search_movies.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_trending.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_videos.dart';
 import 'package:mao_trailer/presentation/blocs/cast_bloc/cast_bloc.dart';
@@ -17,6 +18,7 @@ import 'package:mao_trailer/presentation/blocs/movie_backdrop_bloc/movie_backdro
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
+import 'package:mao_trailer/presentation/blocs/search_movies_bloc/search_movie_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/videos_bloc/videos_bloc.dart';
 
 final getItInstance = GetIt.I;
@@ -103,4 +105,12 @@ Future init() async {
 
   //VideosBloc:-----------------------------------------------------------------
   getItInstance.registerFactory(() => VideosBloc(getVideos: getItInstance()));
+
+  //GetSearchMovie:-------------------------------------------------------------
+  getItInstance.registerLazySingleton<GetSearchMovies>(
+      () => GetSearchMovies(getItInstance()));
+
+  //SearchMovieBloc:------------------------------------------------------------
+  getItInstance
+      .registerFactory(() => SearchMovieBloc(searchMovies: getItInstance()));
 }

@@ -23,11 +23,35 @@ class DioClient {
 
   String getPath(String path,Map<dynamic,dynamic>? params){
     var paramsString = '';
-    if(params?.isEmpty ?? false){
-      params?.forEach((key, value) {
+    if(params?.isNotEmpty ?? false){
+      params!.forEach((key, value) {
         paramsString += '&$key=$value';
       });
     }
+    print('dio_client: $paramsString');
     return '${ApiConstants.BASE_URL}$path?api_key=${ApiConstants.API_KEY}$paramsString';
   }
+
+  // // Get:-----------------------------------------------------------------------
+  // Future<dynamic> get(
+  //     String uri, {
+  //       Map<String, dynamic>? queryParameters,
+  //       Options? options,
+  //       CancelToken? cancelToken,
+  //       ProgressCallback? onReceiveProgress,
+  //     }) async {
+  //   try {
+  //     final Response response = await _dio.get(
+  //       uri,
+  //       queryParameters: queryParameters,
+  //       options: options,
+  //       cancelToken: cancelToken,
+  //       onReceiveProgress: onReceiveProgress,
+  //     );
+  //     return response.data;
+  //   } catch (e) {
+  //     print(e.toString());
+  //     throw e;
+  //   }
+  // }
 }
