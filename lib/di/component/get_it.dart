@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mao_trailer/data/core/dio_client.dart';
+import 'package:mao_trailer/data/data_source/movie_local_data_source.dart';
 import 'package:mao_trailer/data/data_source/movie_remote_data_source.dart';
 import 'package:mao_trailer/data/repositories/movie_repository_impl.dart';
+import 'package:mao_trailer/di/module/network_module.dart';
 import 'package:mao_trailer/domain/repositories/movie_repository.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_cast.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_coming_soon.dart';
@@ -25,7 +27,7 @@ final getItInstance = GetIt.I;
 
 Future init() async {
   // Dio:-----------------------------------------------------------------------
-  getItInstance.registerLazySingleton<Dio>(() => Dio());
+  getItInstance.registerLazySingleton<Dio>(() => NetworkModule.provideDio());
 
   // DioClient:-----------------------------------------------------------------
   getItInstance
@@ -33,11 +35,20 @@ Future init() async {
 
   //MovieRemoteDataSource:------------------------------------------------------
   getItInstance.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(getItInstance()));
+    () => MovieRemoteDataSourceImpl(getItInstance()),
+  );
+
+  //MovieLocalDataSource:-------------------------------------------------------
+  getItInstance.registerLazySingleton<MovieLocalDataSource>(
+    () => MovieLocalDataSourceImpl(),
+  );
 
   //MovieRepository:------------------------------------------------------------
-  getItInstance.registerLazySingleton<MovieRepository>(
-      () => MovieRepositoryImpl(getItInstance()));
+  getItInstance
+      .registerLazySingleton<MovieRepository>(() => MovieRepositoryImpl(
+            getItInstance(),
+            getItInstance(),
+          ));
 
   //GetTrending:----------------------------------------------------------------
   getItInstance

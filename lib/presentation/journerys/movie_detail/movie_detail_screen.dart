@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mao_trailer/common/constant/translation_constrains.dart';
 import 'package:mao_trailer/common/extensions/string_extensions.dart';
-import 'package:mao_trailer/di/get_it.dart';
+import 'package:mao_trailer/di/component/get_it.dart';
 import 'package:mao_trailer/presentation/blocs/cast_bloc/cast_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_event.dart';

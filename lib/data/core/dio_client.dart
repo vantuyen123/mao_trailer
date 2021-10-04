@@ -7,51 +7,40 @@ class DioClient {
   DioClient(this._dio);
 
   //Get: -----------------------------------------------------------------------
-  dynamic get(String path, {Map<dynamic,dynamic>? params}) async {
-    final response = await _dio.get(
-      getPath(path, params),
-      options: Options(
-        headers: {'Content-Type': 'Application/json'},
-      ),
-    );
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception(response.statusMessage);
+  dynamic get(
+    String path, {
+    Map<dynamic, dynamic>? params,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    try {
+      final response = await _dio.get(
+        getPath(path, params),
+        options: Options(
+          headers: {'Content-Type': 'Application/json'},
+        ),
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+      );
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        return print('Error get Api: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error get Api:' + e.toString());
+      throw e;
     }
   }
 
-  String getPath(String path,Map<dynamic,dynamic>? params){
+  String getPath(String path, Map<dynamic, dynamic>? params) {
     var paramsString = '';
-    if(params?.isNotEmpty ?? false){
+    if (params?.isNotEmpty ?? false) {
       params!.forEach((key, value) {
         paramsString += '&$key=$value';
       });
     }
-    print('dio_client: $paramsString');
     return '${ApiConstants.BASE_URL}$path?api_key=${ApiConstants.API_KEY}$paramsString';
   }
-
-  // // Get:-----------------------------------------------------------------------
-  // Future<dynamic> get(
-  //     String uri, {
-  //       Map<String, dynamic>? queryParameters,
-  //       Options? options,
-  //       CancelToken? cancelToken,
-  //       ProgressCallback? onReceiveProgress,
-  //     }) async {
-  //   try {
-  //     final Response response = await _dio.get(
-  //       uri,
-  //       queryParameters: queryParameters,
-  //       options: options,
-  //       cancelToken: cancelToken,
-  //       onReceiveProgress: onReceiveProgress,
-  //     );
-  //     return response.data;
-  //   } catch (e) {
-  //     print(e.toString());
-  //     throw e;
-  //   }
-  // }
 }

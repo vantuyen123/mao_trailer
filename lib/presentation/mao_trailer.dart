@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mao_trailer/common/constant/language.dart';
-import 'package:mao_trailer/di/get_it.dart';
+import 'package:mao_trailer/di/component/get_it.dart';
 import 'package:mao_trailer/presentation/app_localizations.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_state.dart';
 import 'package:mao_trailer/presentation/journerys/home/home_screen.dart';
