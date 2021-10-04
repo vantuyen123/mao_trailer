@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mao_trailer/di/get_it.dart';
+import 'package:mao_trailer/di/component/get_it.dart';
 import 'package:mao_trailer/presentation/blocs/movie_backdrop_bloc/movie_backdrop_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_event.dart';
