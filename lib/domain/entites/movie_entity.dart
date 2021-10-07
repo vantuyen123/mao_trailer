@@ -1,6 +1,8 @@
-import 'package:equatable/equatable.dart';
 
-class MovieEntity extends Equatable{
+import 'package:equatable/equatable.dart';
+import 'package:mao_trailer/domain/entites/movie_detail_entity.dart';
+
+class MovieEntity extends Equatable {
   final String posterPath;
   final int id;
   final String backdropPath;
@@ -20,10 +22,22 @@ class MovieEntity extends Equatable{
   });
 
   @override
-  List<Object?> get props => [id,title];
+  List<Object?> get props => [id, title];
 
   @override
   // TODO: implement stringify
   bool? get stringify => true;
 
+  factory MovieEntity.fromMovieDetailEntity(
+      MovieDetailEntity movieDetailEntity) {
+    return MovieEntity(
+      posterPath: movieDetailEntity.posterPath,
+      id: movieDetailEntity.id,
+      backdropPath: movieDetailEntity.backdropPath,
+      title: movieDetailEntity.title,
+      voteAverage: movieDetailEntity.voteAverage,
+      releaseDate: movieDetailEntity.releaseDate,
+      overview: movieDetailEntity.overview,
+    );
+  }
 }

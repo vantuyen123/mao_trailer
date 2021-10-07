@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mao_trailer/common/constant/language.dart';
 import 'package:mao_trailer/di/component/get_it.dart';
 import 'package:mao_trailer/presentation/app_localizations.dart';
+import 'package:mao_trailer/presentation/blocs/language_bloc/language_event.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_state.dart';
 import 'package:mao_trailer/presentation/journerys/home/home_screen.dart';
 import 'package:mao_trailer/presentation/themes/app_color.dart';
@@ -27,6 +28,7 @@ class _MaoTrailerState extends State<MaoTrailer> {
   void initState() {
     super.initState();
     _languageBloc = getItInstance<LanguageBloc>();
+    _languageBloc.add(LoadPreferredLanguageEvent());
   }
 
   @override

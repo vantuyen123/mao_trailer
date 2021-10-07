@@ -1,20 +1,30 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mao_trailer/data/core/dio_client.dart';
+import 'package:mao_trailer/data/data_source/language_local_data_source.dart';
 import 'package:mao_trailer/data/data_source/movie_local_data_source.dart';
 import 'package:mao_trailer/data/data_source/movie_remote_data_source.dart';
+import 'package:mao_trailer/data/repositories/app_repository_impl.dart';
 import 'package:mao_trailer/data/repositories/movie_repository_impl.dart';
 import 'package:mao_trailer/di/module/network_module.dart';
+import 'package:mao_trailer/domain/repositories/app_repository.dart';
 import 'package:mao_trailer/domain/repositories/movie_repository.dart';
+import 'package:mao_trailer/domain/usecases/language/get_preferred_language.dart';
+import 'package:mao_trailer/domain/usecases/language/update_language.dart';
+import 'package:mao_trailer/domain/usecases/movie/check_if_favorite.dart';
+import 'package:mao_trailer/domain/usecases/movie/delete_favorite_movie.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_cast.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_coming_soon.dart';
+import 'package:mao_trailer/domain/usecases/movie/get_favorite_movies.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_movie_detail.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_playing_now.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_popular.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_search_movies.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_trending.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_videos.dart';
+import 'package:mao_trailer/domain/usecases/movie/save_movie.dart';
 import 'package:mao_trailer/presentation/blocs/cast_bloc/cast_bloc.dart';
+import 'package:mao_trailer/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_backdrop_bloc/movie_backdrop_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_bloc.dart';
@@ -86,8 +96,8 @@ Future init() async {
     ),
   );
 
-  //LanguageBloc:---------------------------------------------------------------
-  getItInstance.registerSingleton<LanguageBloc>(LanguageBloc());
+
+
 
   //GetMovieDetail:-------------------------------------------------------------
   getItInstance.registerLazySingleton<GetMovieDetail>(
@@ -99,9 +109,11 @@ Future init() async {
   //MovieDetailBloc:------------------------------------------------------------
   getItInstance.registerFactory(
     () => MovieDetailBloc(
-        castBloc: getItInstance(),
-        getMovieDetail: getItInstance(),
-        videosBloc: getItInstance()),
+      castBloc: getItInstance(),
+      getMovieDetail: getItInstance(),
+      videosBloc: getItInstance(),
+      favoriteBloc: getItInstance(),
+    ),
   );
 
   //GetCast:--------------------------------------------------------------------
@@ -124,4 +136,56 @@ Future init() async {
   //SearchMovieBloc:------------------------------------------------------------
   getItInstance
       .registerFactory(() => SearchMovieBloc(searchMovies: getItInstance()));
+
+  //SaveMovie:------------------------------------------------------------------
+  getItInstance
+      .registerLazySingleton<SaveMovie>(() => SaveMovie(getItInstance()));
+
+  //checkIfFavorite:------------------------------------------------------------
+  getItInstance.registerLazySingleton<CheckIfFavorite>(
+      () => CheckIfFavorite(getItInstance()));
+
+  //getFavoriteMovies:----------------------------------------------------------
+  getItInstance.registerLazySingleton<GetFavoriteMovies>(
+      () => GetFavoriteMovies(getItInstance()));
+
+  //deleteFavoriteMovie:--------------------------------------------------------
+  getItInstance.registerLazySingleton<DeleteFavoriteMovie>(
+      () => DeleteFavoriteMovie(getItInstance()));
+
+  //FavoriteBloc:---------------------------------------------------------------
+  getItInstance.registerFactory(
+    () => FavoriteBloc(
+      saveMovie: getItInstance(),
+      getFavoriteMovies: getItInstance(),
+      deleteFavoriteMovie: getItInstance(),
+      checkIfFavorite: getItInstance(),
+    ),
+  );
+
+  //LanguageLocalDataSource:----------------------------------------------------
+  getItInstance.registerLazySingleton<LanguageLocalDataSource>(
+      () => LanguageLocalDataSourceImpl());
+  // //AppRepository:--------------------------------------------------------------
+  getItInstance.registerLazySingleton<AppRepository>(
+      () => AppRepositoryImpl(getItInstance()));
+
+  //UpdateLanguage:-------------------------------------------------------------
+  getItInstance.registerLazySingleton<UpdateLanguage>(
+      () => UpdateLanguage(getItInstance()));
+
+  //getPreferredLanguage:-------------------------------------------------------
+  getItInstance.registerLazySingleton<GetPreferredLanguage>(
+          () => GetPreferredLanguage(getItInstance()));
+  
+  //LanguageBloc:---------------------------------------------------------------
+  getItInstance.registerSingleton<LanguageBloc>(LanguageBloc(
+    getPreferredLanguage: getItInstance(),
+    updateLanguage: getItInstance(),
+  ));
+
+
+
+
+
 }
