@@ -19,3 +19,6 @@ class LanguageLoaded extends LanguageState{
   // TODO: implement props
   List<Object?> get props => [locale.languageCode];
 }
+
+class LanguageError extends LanguageState {}
+

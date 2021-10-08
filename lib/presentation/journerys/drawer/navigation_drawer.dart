@@ -8,6 +8,7 @@ import 'package:mao_trailer/presentation/blocs/language_bloc/language_bloc.dart'
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_event.dart';
 import 'package:mao_trailer/presentation/journerys/drawer/navigation_expanded_list_title.dart';
 import 'package:mao_trailer/presentation/journerys/drawer/navigation_list_item.dart';
+import 'package:mao_trailer/presentation/journerys/favorite/favorite_screen.dart';
 import 'package:mao_trailer/presentation/widgets/app_dialog.dart';
 import 'package:mao_trailer/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';
@@ -42,7 +43,9 @@ class NavigationDrawer extends StatelessWidget {
             NavigationListItem(
                 title:
                     TranslationConstants.FAVORITEMOVIES.t(context).toString(),
-                onPress: () {}),
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavoriteScreen()),);
+                }),
             NavigationExpandedListItem(
               title: TranslationConstants.LANGUAGE.t(context).toString(),
               children: Languages.languages.map((e) => e.value).toList(),

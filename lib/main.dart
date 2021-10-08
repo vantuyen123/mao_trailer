@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:mao_trailer/data/tables/movie_table.dart';
 import 'package:mao_trailer/presentation/mao_trailer.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pedantic/pedantic.dart';
@@ -15,6 +16,6 @@ void main() async {
   unawaited(getIt.init());
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
-  print('main: $appDocumentDir');
+  Hive.registerAdapter(MovieTableAdapter());
   runApp(MaoTrailer());
 }

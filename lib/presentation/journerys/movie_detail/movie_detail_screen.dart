@@ -6,6 +6,7 @@ import 'package:mao_trailer/common/constant/translation_constrains.dart';
 import 'package:mao_trailer/common/extensions/string_extensions.dart';
 import 'package:mao_trailer/di/component/get_it.dart';
 import 'package:mao_trailer/presentation/blocs/cast_bloc/cast_bloc.dart';
+import 'package:mao_trailer/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_event.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_state.dart';
@@ -30,6 +31,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late MovieDetailBloc _movieDetailBloc;
   late CastBloc _castBloc;
   late VideosBloc _videosBloc;
+  late FavoriteBloc _favoriteBloc;
 
   @override
   void initState() {
@@ -37,6 +39,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     _movieDetailBloc = getItInstance<MovieDetailBloc>();
     _castBloc = _movieDetailBloc.castBloc;
     _videosBloc = _movieDetailBloc.videosBloc;
+    _favoriteBloc = _movieDetailBloc.favoriteBloc;
     _movieDetailBloc.add(
       MovieDetailLoadEvent(widget.movieDetailArguments.movieId),
     );
@@ -47,6 +50,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     _movieDetailBloc.close();
     _castBloc.close();
     _videosBloc.close();
+    _favoriteBloc.close();
     super.dispose();
   }
 
@@ -57,7 +61,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         providers: [
           BlocProvider.value(value: _movieDetailBloc),
           BlocProvider.value(value: _castBloc),
-          BlocProvider.value(value: _videosBloc)
+          BlocProvider.value(value: _videosBloc),
+          BlocProvider.value(value: _favoriteBloc)
         ],
         child: BlocBuilder<MovieDetailBloc, MovieDetailState>(
           builder: (context, state) {
