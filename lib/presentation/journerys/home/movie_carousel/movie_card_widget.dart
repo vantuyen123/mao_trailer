@@ -26,6 +26,13 @@ class MovieCardWidget extends StatelessWidget {
               RouteList.movieDetail,
               arguments: MovieDetailArguments(movieId),
             );
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //     builder: (context) => MovieDetailScreen(
+            //       movieDetailArguments: MovieDetailArguments(movieId),
+            //     ),
+            //   ),
+            // );
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16.w),
