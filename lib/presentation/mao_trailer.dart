@@ -3,16 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mao_trailer/common/constant/language.dart';
+import 'package:mao_trailer/common/constant/route_constants.dart';
 import 'package:mao_trailer/di/component/get_it.dart';
 import 'package:mao_trailer/presentation/app_localizations.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_event.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_state.dart';
-import 'package:mao_trailer/presentation/journerys/home/home_screen.dart';
+import 'package:mao_trailer/presentation/routes.dart';
 import 'package:mao_trailer/presentation/themes/app_color.dart';
 import 'package:mao_trailer/presentation/themes/theme_text.dart';
 import 'package:mao_trailer/presentation/widgets/wiredsh_app.dart';
 
 import 'blocs/language_bloc/language_bloc.dart';
+import 'fade_page_route_builder.dart';
 
 class MaoTrailer extends StatefulWidget {
   final _navigatorKey = GlobalKey<NavigatorState>();
@@ -61,7 +63,19 @@ class _MaoTrailerState extends State<MaoTrailer> {
                       visualDensity: VisualDensity.adaptivePlatformDensity,
                       textTheme: ThemeText.getTextTheme(),
                       appBarTheme: const AppBarTheme(elevation: 0)),
-                  home: HomeScreen(),
+                  // home: HomeScreen(),
+                  builder: (context,child){
+                    return child!;
+                  },
+                  initialRoute: RouteList.initial,
+                  onGenerateRoute: (RouteSettings? settings){
+                    final routes = Routes.getRoutes(settings!);
+                    final WidgetBuilder? builder = routes[settings.name];
+                    return FadePageRouteBuilder(
+                      builder: builder!,
+                      settings: settings
+                    );
+                  },
                   supportedLocales:
                       Languages.languages.map((e) => Locale(e.code)).toList(),
                   locale: state.locale,

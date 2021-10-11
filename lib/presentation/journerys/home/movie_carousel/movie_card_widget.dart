@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mao_trailer/common/constant/route_constants.dart';
 import 'package:mao_trailer/data/core/api_constants.dart';
 import 'package:mao_trailer/presentation/journerys/movie_detail/movie_detail_arguments.dart';
-import 'package:mao_trailer/presentation/journerys/movie_detail/movie_detail_screen.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final int movieId;
@@ -22,12 +22,9 @@ class MovieCardWidget extends StatelessWidget {
         elevation: 32,
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => MovieDetailScreen(
-                  movieDetailArguments: MovieDetailArguments(movieId),
-                ),
-              ),
+            Navigator.of(context).pushNamed(
+              RouteList.movieDetail,
+              arguments: MovieDetailArguments(movieId),
             );
           },
           child: ClipRRect(
