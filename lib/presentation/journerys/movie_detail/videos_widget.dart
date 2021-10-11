@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mao_trailer/common/constant/route_constants.dart';
 import 'package:mao_trailer/common/constant/translation_constrains.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_state.dart';
 import 'package:mao_trailer/presentation/blocs/videos_bloc/videos_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/videos_bloc/videos_state.dart';
 import 'package:mao_trailer/presentation/journerys/watch_video/watch_video_argument.dart';
-import 'package:mao_trailer/presentation/journerys/watch_video/watch_videos_screen.dart';
 import 'package:mao_trailer/presentation/widgets/button.dart';
 
 class VideosWidget extends StatelessWidget {
@@ -27,13 +27,15 @@ class VideosWidget extends StatelessWidget {
           return Button(
             text: TranslationConstants.WATCHTRAILERS,
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => WatchVideoScreen(
-                    watchVideoArguments: WatchVideoArguments(_videos),
-                  ),
-                ),
-              );
+              Navigator.of(context).pushNamed(RouteList.watchTrailer,arguments: WatchVideoArguments(_videos));
+
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => WatchVideoScreen(
+              //       watchVideoArguments: WatchVideoArguments(_videos),
+              //     ),
+              //   ),
+              // );
             },
           );
         } else if (state is MovieDetailError) {

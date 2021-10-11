@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mao_trailer/common/constant/route_constants.dart';
 import 'package:mao_trailer/data/core/api_constants.dart';
 import 'package:mao_trailer/domain/entites/movie_entity.dart';
 import 'package:mao_trailer/presentation/journerys/movie_detail/movie_detail_arguments.dart';
-import 'package:mao_trailer/presentation/journerys/movie_detail/movie_detail_screen.dart';
 import 'package:mao_trailer/presentation/themes/theme_text.dart';
 
 class SearchMovieCard extends StatelessWidget {
@@ -17,13 +17,14 @@ class SearchMovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => MovieDetailScreen(
-              movieDetailArguments: MovieDetailArguments(movie.id),
-            ),
-          ),
-        );
+        Navigator.of(context).pushNamed(RouteList.movieDetail,arguments: MovieDetailArguments(movie.id),);
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => MovieDetailScreen(
+        //       movieDetailArguments: MovieDetailArguments(movie.id),
+        //     ),
+        //   ),
+        // );
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
