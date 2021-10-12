@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart';
 import 'package:mao_trailer/data/core/dio_client.dart';
+import 'package:mao_trailer/data/core/http_client.dart';
 import 'package:mao_trailer/data/data_source/language_local_data_source.dart';
 import 'package:mao_trailer/data/data_source/movie_local_data_source.dart';
 import 'package:mao_trailer/data/data_source/movie_remote_data_source.dart';
@@ -36,6 +38,12 @@ import 'package:mao_trailer/presentation/blocs/videos_bloc/videos_bloc.dart';
 final getItInstance = GetIt.I;
 
 Future init() async {
+  //Client:---------------------------------------------------------------------
+  getItInstance.registerLazySingleton<Client>(() => Client());
+
+  //HttpClient:
+  getItInstance.registerLazySingleton<HttpClient>(() => HttpClient(getItInstance()));
+
   // Dio:-----------------------------------------------------------------------
   getItInstance.registerLazySingleton<Dio>(() => NetworkModule.provideDio());
 
