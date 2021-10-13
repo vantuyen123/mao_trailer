@@ -49,4 +49,8 @@ class HttpClient {
     return '${ApiConstants.BASE_URL}$path?api_key=${ApiConstants
         .API_KEY}$paramsString';
   }
+
+  dynamic deleteWithBody(String path,{Map<dynamic,dynamic> params}) async{
+    Request request = Request('DELETE',Uri.parse(s))
+  }
 }

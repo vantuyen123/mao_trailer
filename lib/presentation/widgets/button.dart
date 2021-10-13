@@ -7,11 +7,13 @@ import 'package:mao_trailer/presentation/themes/app_color.dart';
 class Button extends StatelessWidget {
   final String text;
   final Function() onPressed;
+  final bool isEnabled;
 
   const Button({
     Key? key,
     required this.text,
     required this.onPressed,
+    this.isEnabled = true,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,9 @@ class Button extends StatelessWidget {
       height: 45.h,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [AppColor.royalBlue, AppColor.violet],
+          colors: isEnabled
+              ? [AppColor.royalBlue, AppColor.violet]
+              : [Colors.grey, Colors.grey],
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(20.r),

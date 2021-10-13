@@ -7,6 +7,9 @@ abstract class AuthenticationRemoteDataSource {
   Future<RequestTokenModel> validateWithLogin(Map<String, dynamic> requestBody);
 
   Future<String> createSession(Map<String, dynamic> requestBody);
+
+  Future<bool> deleteSession(String sessionId);
+
 }
 
 class AuthenticationRemoteDataSourceImpl
@@ -40,5 +43,16 @@ class AuthenticationRemoteDataSourceImpl
     );
     print(response);
     return RequestTokenModel.fromJson(response);
+  }
+
+  @override
+  Future<bool> deleteSession(String sessionId) async {
+    final response = await _client.deleteWithBody(
+      'authentication/session',
+      params:{
+        'session_id': sessionId,
+      }
+    );
+    return response['success'] ?? false;
   }
 }
