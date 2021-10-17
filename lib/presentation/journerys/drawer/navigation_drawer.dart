@@ -77,8 +77,7 @@ class NavigationDrawer extends StatelessWidget {
               child: NavigationListItem(
                 title: TranslationConstants.logout.t(context).toString(),
                 onPress: () {
-                  Navigator.of(context).pop();
-                  _showDialog(context);
+                  BlocProvider.of<LoginBloc>(context).add(LogoutEvent());
                 },
               ),
             ),

@@ -17,7 +17,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   late TextEditingController _userController, _passwordController;
-  bool enableSignIn = false;
+  bool enableSignIn = true;
 
   @override
   void initState() {
@@ -25,6 +25,10 @@ class _LoginFormState extends State<LoginForm> {
     _userController = TextEditingController();
     _passwordController = TextEditingController();
 
+    textEditingListen();
+  }
+
+  void textEditingListen() {
     _userController.addListener(() {
       setState(() {
         enableSignIn = _userController.text.isNotEmpty &&
@@ -41,9 +45,10 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
+    // _userController.clear();
+    // _passwordController.clear();
     super.dispose();
-    _userController.clear();
-    _passwordController.clear();
+
   }
 
   @override

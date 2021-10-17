@@ -6,6 +6,7 @@ import 'package:mao_trailer/domain/entites/app_error.dart';
 import 'package:mao_trailer/domain/entites/login_request_params.dart';
 import 'package:mao_trailer/domain/entites/no_params.dart';
 import 'package:mao_trailer/domain/usecases/authentication/login_user.dart';
+import 'package:mao_trailer/domain/usecases/authentication/logout_user.dart';
 
 part 'login_event.dart';
 

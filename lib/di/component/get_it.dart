@@ -16,6 +16,7 @@ import 'package:mao_trailer/domain/repositories/app_repository.dart';
 import 'package:mao_trailer/domain/repositories/authentication_repository.dart';
 import 'package:mao_trailer/domain/repositories/movie_repository.dart';
 import 'package:mao_trailer/domain/usecases/authentication/login_user.dart';
+import 'package:mao_trailer/domain/usecases/authentication/logout_user.dart';
 import 'package:mao_trailer/domain/usecases/language/get_preferred_language.dart';
 import 'package:mao_trailer/domain/usecases/language/update_language.dart';
 import 'package:mao_trailer/domain/usecases/movie/check_if_favorite.dart';
@@ -213,7 +214,10 @@ Future init() async {
   getItInstance
       .registerLazySingleton<LoginUser>(() => LoginUser(getItInstance()));
 
+  //GetLogout:------------------------------------------------------------------
+  getItInstance.registerLazySingleton<LogoutUser>(() => LogoutUser(getItInstance()));
+
   //LoginBLoc:------------------------------------------------------------------
   getItInstance
-      .registerSingleton<LoginBloc>(LoginBloc(loginUser: getItInstance()));
+      .registerSingleton<LoginBloc>(LoginBloc(loginUser: getItInstance(), logoutUser: getItInstance()));
 }
