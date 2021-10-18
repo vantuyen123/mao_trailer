@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mao_trailer/common/constant/translation_constrains.dart';
 import 'package:mao_trailer/domain/entites/app_error.dart';
 import 'package:mao_trailer/domain/entites/login_request_params.dart';
 import 'package:mao_trailer/domain/entites/no_params.dart';
 import 'package:mao_trailer/domain/usecases/authentication/login_user.dart';
 import 'package:mao_trailer/domain/usecases/authentication/logout_user.dart';
+import 'package:mao_trailer/domain/usecases/authentication/sign_with_google.dart';
 import 'package:mao_trailer/presentation/blocs/loading/loading_bloc.dart';
 
 part 'login_event.dart';
@@ -17,11 +19,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUser loginUser;
   final LogoutUser logoutUser;
   final LoadingBloc loadingBloc;
+  final SignWithGoogle signWithGoogle;
 
   LoginBloc({
     required this.loginUser,
     required this.logoutUser,
     required this.loadingBloc,
+    required this.signWithGoogle,
   }) : super(LoginInitial());
 
   @override
@@ -41,6 +45,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else if (event is LogoutEvent) {
       await logoutUser(NoParams());
       yield LogoutSuccess();
+    } else if (event is LoginGoogleEvent) {
+      await signWithGoogle(NoParams());
+      yield LoginSuccess();
+      final Either<AppError, UserCredential> eitherResponse =
+          await signWithGoogle(NoParams());
+      yield eitherResponse.fold(
+        (l) {
+          var message = getErrorMessage(l.appErrorType);
+          return LoginError(message);
+        },
+        (r) => LoginSuccess(),
+      );
     }
   }
 

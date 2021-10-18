@@ -39,6 +39,7 @@ class NavigationDrawer extends StatelessWidget {
               ),
               child: Logo(
                 height: 60.h,
+                image: 'assets/images/logo/logo.png',
               ),
             ),
             NavigationListItem(

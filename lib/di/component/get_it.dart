@@ -17,6 +17,7 @@ import 'package:mao_trailer/domain/repositories/authentication_repository.dart';
 import 'package:mao_trailer/domain/repositories/movie_repository.dart';
 import 'package:mao_trailer/domain/usecases/authentication/login_user.dart';
 import 'package:mao_trailer/domain/usecases/authentication/logout_user.dart';
+import 'package:mao_trailer/domain/usecases/authentication/sign_with_google.dart';
 import 'package:mao_trailer/domain/usecases/language/get_preferred_language.dart';
 import 'package:mao_trailer/domain/usecases/language/update_language.dart';
 import 'package:mao_trailer/domain/usecases/movie/check_if_favorite.dart';
@@ -226,10 +227,17 @@ Future init() async {
   //LoadingBloc:----------------------------------------------------------------
   getItInstance.registerSingleton<LoadingBloc>(LoadingBloc());
 
+  //SignWithGoogle:-------------------------------------------------------------
+  getItInstance.registerLazySingleton<SignWithGoogle>(
+      () => SignWithGoogle(getItInstance()));
+
   //LoginBLoc:------------------------------------------------------------------
-  getItInstance.registerSingleton<LoginBloc>(LoginBloc(
-    loginUser: getItInstance(),
-    logoutUser: getItInstance(),
-    loadingBloc: getItInstance(),
-  ));
+  getItInstance.registerSingleton<LoginBloc>(
+    LoginBloc(
+      loginUser: getItInstance(),
+      logoutUser: getItInstance(),
+      loadingBloc: getItInstance(),
+      signWithGoogle: getItInstance(),
+    ),
+  );
 }

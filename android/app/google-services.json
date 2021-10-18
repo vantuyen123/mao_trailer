@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "167825792185",
-    "project_id": "movieapp-c3bd5",
-    "storage_bucket": "movieapp-c3bd5.appspot.com"
+    "project_number": "357675686523",
+    "project_id": "maotrailer-eaf6b",
+    "storage_bucket": "maotrailer-eaf6b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:167825792185:android:269e5eb3ca255ac7ebcf68",
+        "mobilesdk_app_id": "1:357675686523:android:60f4cf3155a5ac9defa0de",
         "android_client_info": {
           "package_name": "com.example.mao_trailer"
         }
       },
       "oauth_client": [
         {
-          "client_id": "167825792185-k6vvoh0g4pbc2e9bicpkca1c2ldc7bvl.apps.googleusercontent.com",
+          "client_id": "357675686523-jc6m1ajg4c0e9jo8d457i1m1h2ln6ouc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.mao_trailer",
-            "certificate_hash": "ba91db6bda06d5b5255843ee5ed6702e9edbced9"
+            "certificate_hash": "e932f06d403f66c1b53b85c1efd242c70c4a73fe"
           }
         },
         {
-          "client_id": "167825792185-mgrhejmu340gt45mlugnpvtc098eua5m.apps.googleusercontent.com",
+          "client_id": "357675686523-vq98iibnorugdiupvmboecqqn27ohst8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCP8vR3BhMjkGJBa5AAFhztza_wb8i7fGk"
+          "current_key": "AIzaSyDinY3djXr8q73jukbGr-cIUT1XGammLPc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "167825792185-mgrhejmu340gt45mlugnpvtc098eua5m.apps.googleusercontent.com",
+              "client_id": "357675686523-vq98iibnorugdiupvmboecqqn27ohst8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

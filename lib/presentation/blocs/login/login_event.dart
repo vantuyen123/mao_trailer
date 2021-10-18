@@ -14,8 +14,9 @@ class LoginInitiateEvent extends LoginEvent {
   LoginInitiateEvent(this.username, this.password);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [username, password];
 }
+
+class LoginGoogleEvent extends LoginEvent {}
 
 class LogoutEvent extends LoginEvent {}

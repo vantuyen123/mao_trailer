@@ -22,3 +22,5 @@ class LoginError extends LoginState {
 }
 
 class LogoutSuccess extends LoginState{}
+
+class LoginWithGoogle extends LoginState{}

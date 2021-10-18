@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mao_trailer/presentation/journerys/login/social_authentication.dart';
 import 'package:mao_trailer/presentation/widgets/logo.dart';
 
 import 'login_form.dart';
@@ -18,9 +19,11 @@ class LoginScreen extends StatelessWidget {
                 padding:  EdgeInsets.all(25.0),
                 child: Logo(
                   height: 120.h,
+                  image: 'assets/images/logo/logo.png',
                 ),
               ),
-              LoginForm()
+              LoginForm(),
+              SocialAuthentication()
             ],
           ),
         ),
@@ -28,3 +31,4 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+

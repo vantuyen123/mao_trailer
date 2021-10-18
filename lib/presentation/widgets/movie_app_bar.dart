@@ -29,6 +29,7 @@ class MovieAppBar extends StatelessWidget {
           ),
           Expanded(
             child: Logo(
+              image: 'assets/images/logo/logo.png',
               height: 35.h,
             ),
           ),
@@ -37,9 +38,8 @@ class MovieAppBar extends StatelessWidget {
               showSearch(
                 context: context,
                 delegate: CustomSearchDelegate(
-                  BlocProvider.of<SearchMovieBloc>(context)
-                ),
-               );
+                    BlocProvider.of<SearchMovieBloc>(context)),
+              );
             },
             icon: Icon(
               Icons.search,

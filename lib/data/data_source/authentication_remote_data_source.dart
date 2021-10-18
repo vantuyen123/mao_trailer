@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mao_trailer/data/core/http_client.dart';
 import 'package:mao_trailer/data/models/request_token_model.dart';
 
@@ -10,6 +12,7 @@ abstract class AuthenticationRemoteDataSource {
 
   Future<bool> deleteSession(String sessionId);
 
+  Future<UserCredential> signWithGoogle();
 }
 
 class AuthenticationRemoteDataSourceImpl
@@ -47,12 +50,24 @@ class AuthenticationRemoteDataSourceImpl
 
   @override
   Future<bool> deleteSession(String sessionId) async {
-    final response = await _client.deleteWithBody(
-      'authentication/session',
-      params:{
-        'session_id': sessionId,
-      }
-    );
+    final response =
+        await _client.deleteWithBody('authentication/session', params: {
+      'session_id': sessionId,
+    });
     return response['success'] ?? false;
+  }
+
+  @override
+  Future<UserCredential> signWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

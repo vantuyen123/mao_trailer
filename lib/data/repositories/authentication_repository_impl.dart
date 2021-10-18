@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mao_trailer/data/core/unauthorised_exception.dart';
 import 'package:mao_trailer/data/data_source/authentication_local_data_source.dart';
 import 'package:mao_trailer/data/data_source/authentication_remote_data_source.dart';
@@ -60,5 +61,11 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       _authenticationLocalDataSource.deleteSessionId(),
     ]);
     return Right(Unit);
+  }
+
+  @override
+  Future<Either<AppError, UserCredential>> signInWithGoogle() async {
+    UserCredential userCredential = await _authenticationRemoteDataSource.signWithGoogle();
+    return Right(userCredential);
   }
 }
