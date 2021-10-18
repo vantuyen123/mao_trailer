@@ -4,17 +4,21 @@ import 'package:mao_trailer/domain/entites/app_error.dart';
 import 'package:mao_trailer/domain/entites/movie_entity.dart';
 import 'package:mao_trailer/domain/entites/movie_search_params.dart';
 import 'package:mao_trailer/domain/usecases/movie/get_search_movies.dart';
+import 'package:mao_trailer/presentation/blocs/loading/loading_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/search_movies_bloc/search_movie_event.dart';
 import 'package:mao_trailer/presentation/blocs/search_movies_bloc/search_movie_state.dart';
 
 class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
   final GetSearchMovies searchMovies;
+  final LoadingBloc loadingBloc;
 
-  SearchMovieBloc({required this.searchMovies}) : super(SearchMovieInitial());
+  SearchMovieBloc({required this.searchMovies, required this.loadingBloc})
+      : super(SearchMovieInitial());
 
   @override
   Stream<SearchMovieState> mapEventToState(SearchMovieEvent event) async* {
     if (event is SearchTermChangedEvent) {
+      loadingBloc.add(StartLoading());
       if (event.searchTerm.length > 2) {
         yield SearchMovieLoading();
         final Either<AppError, List<MovieEntity>> response =
@@ -24,6 +28,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
           (r) => SearchMovieLoaded(r),
         );
       }
+      loadingBloc.add(FinishLoading());
     }
   }
 }

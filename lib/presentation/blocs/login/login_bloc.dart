@@ -7,6 +7,7 @@ import 'package:mao_trailer/domain/entites/login_request_params.dart';
 import 'package:mao_trailer/domain/entites/no_params.dart';
 import 'package:mao_trailer/domain/usecases/authentication/login_user.dart';
 import 'package:mao_trailer/domain/usecases/authentication/logout_user.dart';
+import 'package:mao_trailer/presentation/blocs/loading/loading_bloc.dart';
 
 part 'login_event.dart';
 
@@ -15,16 +16,21 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUser loginUser;
   final LogoutUser logoutUser;
+  final LoadingBloc loadingBloc;
 
-  LoginBloc({required this.loginUser,required this.logoutUser}) : super(LoginInitial());
+  LoginBloc({
+    required this.loginUser,
+    required this.logoutUser,
+    required this.loadingBloc,
+  }) : super(LoginInitial());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is LoginInitiateEvent) {
+      loadingBloc.add(StartLoading());
       final Either<AppError, bool> eitherResponse = await loginUser(
         LoginRequestParams(userName: event.username, password: event.password),
       );
-
       yield eitherResponse.fold(
         (l) {
           var message = getErrorMessage(l.appErrorType);
@@ -32,7 +38,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         },
         (r) => LoginSuccess(),
       );
-    }else if(event is LogoutEvent){
+    } else if (event is LogoutEvent) {
       await logoutUser(NoParams());
       yield LogoutSuccess();
     }

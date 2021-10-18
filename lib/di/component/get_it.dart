@@ -34,6 +34,7 @@ import 'package:mao_trailer/domain/usecases/movie/save_movie.dart';
 import 'package:mao_trailer/presentation/blocs/cast_bloc/cast_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_bloc.dart';
+import 'package:mao_trailer/presentation/blocs/loading/loading_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/login/login_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_backdrop_bloc/movie_backdrop_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_bloc.dart';
@@ -95,6 +96,7 @@ Future init() async {
   //MovieCarouselBloc:----------------------------------------------------------
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
+      loadingBloc: getItInstance(),
       getTrending: getItInstance(),
       movieBackdropBloc: getItInstance(),
     ),
@@ -122,6 +124,7 @@ Future init() async {
   //MovieDetailBloc:------------------------------------------------------------
   getItInstance.registerFactory(
     () => MovieDetailBloc(
+      loadingBloc: getItInstance(),
       castBloc: getItInstance(),
       getMovieDetail: getItInstance(),
       videosBloc: getItInstance(),
@@ -147,8 +150,10 @@ Future init() async {
       () => GetSearchMovies(getItInstance()));
 
   //SearchMovieBloc:------------------------------------------------------------
-  getItInstance
-      .registerFactory(() => SearchMovieBloc(searchMovies: getItInstance()));
+  getItInstance.registerFactory(() => SearchMovieBloc(
+        searchMovies: getItInstance(),
+        loadingBloc: getItInstance(),
+      ));
 
   //SaveMovie:------------------------------------------------------------------
   getItInstance
@@ -215,9 +220,16 @@ Future init() async {
       .registerLazySingleton<LoginUser>(() => LoginUser(getItInstance()));
 
   //GetLogout:------------------------------------------------------------------
-  getItInstance.registerLazySingleton<LogoutUser>(() => LogoutUser(getItInstance()));
+  getItInstance
+      .registerLazySingleton<LogoutUser>(() => LogoutUser(getItInstance()));
+
+  //LoadingBloc:----------------------------------------------------------------
+  getItInstance.registerSingleton<LoadingBloc>(LoadingBloc());
 
   //LoginBLoc:------------------------------------------------------------------
-  getItInstance
-      .registerSingleton<LoginBloc>(LoginBloc(loginUser: getItInstance(), logoutUser: getItInstance()));
+  getItInstance.registerSingleton<LoginBloc>(LoginBloc(
+    loginUser: getItInstance(),
+    logoutUser: getItInstance(),
+    loadingBloc: getItInstance(),
+  ));
 }

@@ -10,6 +10,7 @@ import 'package:mao_trailer/presentation/blocs/cast_bloc/cast_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/cast_bloc/cast_event.dart';
 import 'package:mao_trailer/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/favorite/favorite_event.dart';
+import 'package:mao_trailer/presentation/blocs/loading/loading_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_event.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_state.dart';
 import 'package:mao_trailer/presentation/blocs/videos_bloc/videos_bloc.dart';
@@ -19,8 +20,11 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final GetMovieDetail getMovieDetail;
   final CastBloc castBloc;
   final VideosBloc videosBloc;
+  final LoadingBloc loadingBloc;
   final FavoriteBloc favoriteBloc;
+
   MovieDetailBloc({
+    required this.loadingBloc,
     required this.castBloc,
     required this.getMovieDetail,
     required this.videosBloc,
@@ -30,6 +34,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   @override
   Stream<MovieDetailState> mapEventToState(MovieDetailEvent event) async* {
     if (event is MovieDetailLoadEvent) {
+      loadingBloc.add(StartLoading());
       final Either<AppError, MovieDetailEntity> eitherResponse =
           await getMovieDetail(MovieParams(event.movieId));
 
@@ -37,12 +42,14 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
         (l) => MovieDetailError(),
         (r) => MovieDetailLoaded(r),
       );
-      
+
       favoriteBloc.add(CheckIfFavoriteMovieEvent(event.movieId));
-      
+
       castBloc.add(LoadCastEvent(movieId: event.movieId));
 
       videosBloc.add(LoadVideosEvent(movieId: event.movieId));
+
+      loadingBloc.add(FinishLoading());
     }
   }
 }

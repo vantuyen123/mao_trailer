@@ -47,6 +47,7 @@ dependencies:
   youtube_player_flutter: ^8.0.0
   hive: ^2.0.4
   path_provider: ^2.0.4
+  flare_flutter: ^3.0.2
 
 
 dev_dependencies:
@@ -90,6 +91,7 @@ flutter:
     - assets/pngs/
     - assets/languages/
     - assets/jpg/
+    - assets/animations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

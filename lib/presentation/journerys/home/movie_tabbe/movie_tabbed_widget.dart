@@ -11,6 +11,7 @@ import 'package:mao_trailer/presentation/blocs/movie_tabbed/movie_tabbed_state.d
 import 'package:mao_trailer/presentation/journerys/home/movie_tabbe/movie_list_view_builder.dart';
 import 'package:mao_trailer/presentation/journerys/home/movie_tabbe/movie_tabbed_constants.dart';
 import 'package:mao_trailer/presentation/journerys/home/movie_tabbe/tab_title_widget.dart';
+import 'package:mao_trailer/presentation/journerys/loading/loading_circle.dart';
 import 'package:mao_trailer/presentation/widgets/app_error_widget.dart';
 
 class MovieTabbedWidget extends StatefulWidget {
@@ -82,6 +83,14 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget>
                     MovieTabbedChangedEvent(
                       currentTabIndex: state.currentTabIndex,
                     ),
+                  ),
+                ),
+              ),
+            if (state is MovieTabLoading)
+              Expanded(
+                child: Center(
+                  child: LoadingCircle(
+                    size: 100.w,
                   ),
                 ),
               ),

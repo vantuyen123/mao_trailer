@@ -7,8 +7,8 @@ import 'package:mao_trailer/common/constant/translation_constrains.dart';
 import 'package:mao_trailer/common/extensions/string_extensions.dart';
 import 'package:mao_trailer/presentation/blocs/login/login_bloc.dart';
 import 'package:mao_trailer/presentation/journerys/login/label_fiel_widget.dart';
-import 'package:mao_trailer/presentation/widgets/button.dart';
 import 'package:mao_trailer/presentation/themes/theme_text.dart';
+import 'package:mao_trailer/presentation/widgets/button.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -45,10 +45,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    // _userController.clear();
-    // _passwordController.clear();
     super.dispose();
-
   }
 
   @override
@@ -64,34 +61,28 @@ class _LoginFormState extends State<LoginForm> {
               child: Text(
                 TranslationConstants.loginToMovieApp.t(context).toString(),
                 textAlign: TextAlign.center,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headline5,
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
             LabelFieldWidget(
               label: TranslationConstants.username.t(context).toString(),
               hintText:
-              TranslationConstants.enterTMDbUsername.t(context).toString(),
+                  TranslationConstants.enterTMDbUsername.t(context).toString(),
               controller: _userController,
             ),
             LabelFieldWidget(
               label: TranslationConstants.password.t(context).toString(),
               hintText:
-              TranslationConstants.enterPassword.t(context).toString(),
+                  TranslationConstants.enterPassword.t(context).toString(),
               controller: _passwordController,
               isPasswordField: true,
             ),
-            BlocConsumer<LoginBloc,LoginState>(
+            BlocConsumer<LoginBloc, LoginState>(
               builder: (context, state) {
                 if (state is LoginError) {
                   return Text(
                     state.message.t(context).toString(),
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .orangeSubtitle1,
+                    style: Theme.of(context).textTheme.orangeSubtitle1,
                   );
                 }
                 return SizedBox(height: 25.h);
@@ -100,19 +91,22 @@ class _LoginFormState extends State<LoginForm> {
               listenWhen: (previous, current) => current is LoginSuccess,
               listener: (context, state) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  RouteList.home, (route) => false,);
+                  RouteList.home,
+                  (route) => false,
+                );
               },
             ),
             Button(
               onPressed: enableSignIn
                   ? () {
-                BlocProvider.of<LoginBloc>(context).add(
-                  LoginInitiateEvent(
-                    _userController.text,
-                    _passwordController.text,
-                  ),
-                );
-              } : () {},
+                      BlocProvider.of<LoginBloc>(context).add(
+                        LoginInitiateEvent(
+                          _userController.text,
+                          _passwordController.text,
+                        ),
+                      );
+                    }
+                  : () {},
               text: TranslationConstants.signIn,
               isEnabled: enableSignIn,
             )
