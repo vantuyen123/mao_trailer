@@ -1,14 +1,22 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart';
 import 'package:mao_trailer/data/core/dio_client.dart';
+import 'package:mao_trailer/data/core/http_client.dart';
+import 'package:mao_trailer/data/data_source/authentication_local_data_source.dart';
+import 'package:mao_trailer/data/data_source/authentication_remote_data_source.dart';
 import 'package:mao_trailer/data/data_source/language_local_data_source.dart';
 import 'package:mao_trailer/data/data_source/movie_local_data_source.dart';
 import 'package:mao_trailer/data/data_source/movie_remote_data_source.dart';
 import 'package:mao_trailer/data/repositories/app_repository_impl.dart';
+import 'package:mao_trailer/data/repositories/authentication_repository_impl.dart';
 import 'package:mao_trailer/data/repositories/movie_repository_impl.dart';
 import 'package:mao_trailer/di/module/network_module.dart';
 import 'package:mao_trailer/domain/repositories/app_repository.dart';
+import 'package:mao_trailer/domain/repositories/authentication_repository.dart';
 import 'package:mao_trailer/domain/repositories/movie_repository.dart';
+import 'package:mao_trailer/domain/usecases/authentication/login_user.dart';
+import 'package:mao_trailer/domain/usecases/authentication/logout_user.dart';
 import 'package:mao_trailer/domain/usecases/language/get_preferred_language.dart';
 import 'package:mao_trailer/domain/usecases/language/update_language.dart';
 import 'package:mao_trailer/domain/usecases/movie/check_if_favorite.dart';
@@ -26,6 +34,7 @@ import 'package:mao_trailer/domain/usecases/movie/save_movie.dart';
 import 'package:mao_trailer/presentation/blocs/cast_bloc/cast_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_bloc.dart';
+import 'package:mao_trailer/presentation/blocs/login/login_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_backdrop_bloc/movie_backdrop_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_carousel_bloc/movie_carousel_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/movie_detail_bloc/movie_detail_bloc.dart';
@@ -36,6 +45,13 @@ import 'package:mao_trailer/presentation/blocs/videos_bloc/videos_bloc.dart';
 final getItInstance = GetIt.I;
 
 Future init() async {
+  //Client:---------------------------------------------------------------------
+  getItInstance.registerLazySingleton<Client>(() => Client());
+
+  //HttpClient:
+  getItInstance
+      .registerLazySingleton<HttpClient>(() => HttpClient(getItInstance()));
+
   // Dio:-----------------------------------------------------------------------
   getItInstance.registerLazySingleton<Dio>(() => NetworkModule.provideDio());
 
@@ -95,9 +111,6 @@ Future init() async {
       getComingSoon: getItInstance(),
     ),
   );
-
-
-
 
   //GetMovieDetail:-------------------------------------------------------------
   getItInstance.registerLazySingleton<GetMovieDetail>(
@@ -166,7 +179,7 @@ Future init() async {
   //LanguageLocalDataSource:----------------------------------------------------
   getItInstance.registerLazySingleton<LanguageLocalDataSource>(
       () => LanguageLocalDataSourceImpl());
-  // //AppRepository:--------------------------------------------------------------
+  //AppRepository:--------------------------------------------------------------
   getItInstance.registerLazySingleton<AppRepository>(
       () => AppRepositoryImpl(getItInstance()));
 
@@ -176,16 +189,35 @@ Future init() async {
 
   //getPreferredLanguage:-------------------------------------------------------
   getItInstance.registerLazySingleton<GetPreferredLanguage>(
-          () => GetPreferredLanguage(getItInstance()));
-  
+      () => GetPreferredLanguage(getItInstance()));
+
   //LanguageBloc:---------------------------------------------------------------
   getItInstance.registerSingleton<LanguageBloc>(LanguageBloc(
     getPreferredLanguage: getItInstance(),
     updateLanguage: getItInstance(),
   ));
 
+  ///Authentication:------------------------------------------------------------
 
+  //AuthenticationRemoteDataSource:---------------------------------------------
+  getItInstance.registerLazySingleton<AuthenticationRemoteDataSource>(
+      () => AuthenticationRemoteDataSourceImpl(getItInstance()));
 
+  //AuthenticationLocalDataSource:----------------------------------------------
+  getItInstance.registerLazySingleton<AuthenticationLocalDataSource>(
+      () => AuthenticationLocalDataSourceImpl());
+  //AuthenticationRepository:---------------------------------------------------
+  getItInstance.registerLazySingleton<AuthenticationRepository>(
+      () => AuthenticationRepositoryImpl(getItInstance(), getItInstance()));
 
+  //GetLogin:-------------------------------------------------------------------
+  getItInstance
+      .registerLazySingleton<LoginUser>(() => LoginUser(getItInstance()));
 
+  //GetLogout:------------------------------------------------------------------
+  getItInstance.registerLazySingleton<LogoutUser>(() => LogoutUser(getItInstance()));
+
+  //LoginBLoc:------------------------------------------------------------------
+  getItInstance
+      .registerSingleton<LoginBloc>(LoginBloc(loginUser: getItInstance(), logoutUser: getItInstance()));
 }

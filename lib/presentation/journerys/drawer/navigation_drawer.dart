@@ -7,6 +7,7 @@ import 'package:mao_trailer/common/constant/translation_constrains.dart';
 import 'package:mao_trailer/common/extensions/string_extensions.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:mao_trailer/presentation/blocs/language_bloc/language_event.dart';
+import 'package:mao_trailer/presentation/blocs/login/login_bloc.dart';
 import 'package:mao_trailer/presentation/journerys/drawer/navigation_expanded_list_title.dart';
 import 'package:mao_trailer/presentation/journerys/drawer/navigation_list_item.dart';
 import 'package:mao_trailer/presentation/widgets/app_dialog.dart';
@@ -67,6 +68,19 @@ class NavigationDrawer extends StatelessWidget {
                   Navigator.of(context).pop();
                   _showDialog(context);
                 }),
+            BlocListener<LoginBloc,LoginState>(
+              listenWhen: (previous,current) => current is LogoutSuccess,
+              listener: (context, state) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteList.initial, (route) => false);
+              },
+              child: NavigationListItem(
+                title: TranslationConstants.logout.t(context).toString(),
+                onPress: () {
+                  BlocProvider.of<LoginBloc>(context).add(LogoutEvent());
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -81,7 +95,10 @@ class NavigationDrawer extends StatelessWidget {
           title: TranslationConstants.ABOUT,
           description: TranslationConstants.ABOUTDESCRIPTION,
           buttonText: TranslationConstants.OKAY,
-          image: Image.asset('assets/pngs/tmdb_logo.png',height: 60.h,),
+          image: Image.asset(
+            'assets/pngs/tmdb_logo.png',
+            height: 60.h,
+          ),
         );
       },
     );
